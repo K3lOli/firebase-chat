@@ -26,7 +26,7 @@ export const Auth = ({ setIsAuth }: AuthProps  ) => {
     return(
        <div>
         <p>Sing In With Google To Continue</p>
-        <button onClick={singInWithGoogle} style={{color: 'purple'}}>Sing In With Google </button>
+        <button onClick={singInWithGoogle} style={{color: '#e54d2e'}}>Sing In With Google </button>
        </div> 
     );
 };
