@@ -23,6 +23,46 @@ export const AppWrapper = ({
     setIsAuth(false);
     setIsInChat(false);
   };
+  if (!isAuth) {
+    return (
+      <div>
+        <div
+          style={{
+            width: "300px",
+            height: "300px",
+            gap: "10px",
+            display: "flex",
+            flexDirection: "column",
+            backgroundColor: "rgba(255, 255, 255, 0)",
+            border: "1px solid #ebe0de",
+            padding: "20px 0px 20px 0px",
+            borderRadius: "10px",
+            justifyContent: "space-between",
+          }}
+        >
+          <div>
+            <h1
+              style={{
+                color: "#e54d2e",
+                filter: "drop-shadow(2px 2px 10px #ce1e1e)",
+                height: "min-content",
+                margin: "0",
+              }}
+            >
+              FireChat
+            </h1>
+          </div>
+
+          <div>{children}</div>
+          {isAuth && (
+            <div>
+              <button onClick={signUserOut}>Sign Out</button>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -33,6 +73,7 @@ export const AppWrapper = ({
         backgroundColor: "rgba(255, 255, 255, 0.5)",
         padding: "10px",
         borderRadius: "10px",
+        filter: "drop-shadow(2px 4px 37px white)"
       }}
     >
       <div>
@@ -49,7 +90,15 @@ export const AppWrapper = ({
       </div>
 
       <div>{children}</div>
-      {isAuth && (<div><button onClick={signUserOut}>Sign Out</button></div>)}
+      {isAuth && (
+        <div>
+          <button onClick={signUserOut} style={{
+            position: "absolute",
+            left: "0px",
+            top: "0px",
+          }}>Sign Out</button>
+        </div>
+      )}
     </div>
   );
 };

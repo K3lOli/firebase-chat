@@ -10,6 +10,7 @@ import {
   orderBy,
   QueryDocumentSnapshot,
   DocumentData, // função que ordena os dados de uma coleção de acordo com o filtro passado como parâmetro
+  getDocs,
 } from "firebase/firestore";
 
 //documento é uma unidade básica de dados no Cloud Firestore.
@@ -32,8 +33,25 @@ export function Chat({ room }: ChatProps) {
   const [messages, setMessages] = useState<Messages[]>([]); // estado que armazena as mensagens da sala
   const [newMessage, setNewMessage] = useState(""); // estado que armazena a nova mensagem a ser enviada
   const messagesRef = collection(db, "messages"); // referência da coleção de mensagens
+  
+  const [rooms, setRooms] = useState<string[]>(['vazio']);
+  console.log('room',rooms)
+
+  console.log(rooms)
+  const roomQuery = async() =>{
+    const querySnapshot = await getDocs(messagesRef);
+    let rooms: string[] = [];
+    querySnapshot.forEach((doc: QueryDocumentSnapshot<DocumentData>) => {
+      rooms.push(doc.data().room);
+    });
+    setRooms(rooms);
+  }
+  roomQuery();
+  
 
   useEffect(() => {
+    
+
     const queryMessages = query(
       messagesRef,
       where("room", "==", room),
@@ -52,7 +70,8 @@ export function Chat({ room }: ChatProps) {
     });
 
     return () => unsuscribe(); // retorna a função de cancelamento da inscrição
-  }, []); // executa a função apenas uma vez
+  }, [room]); // executa a função apenas uma vez
+
 
   const handleSubmit = async (e: any) => {
     e.preventDefault(); // previne o comportamento padrão do formulário
@@ -85,7 +104,8 @@ export function Chat({ room }: ChatProps) {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "10px",
-          height: "50vh",
+          height: "55vh",
+          width: "50vw",
         }}
       >
         <div
@@ -95,7 +115,7 @@ export function Chat({ room }: ChatProps) {
             flexDirection: "column",
             justifyContent: "start",
             alignItems: "center",
-            marginBottom: "50px",
+            // marginBottom: "50px",
             height: "80vh",
             overflowY: "scroll",
             gap: "10px",
@@ -154,7 +174,7 @@ export function Chat({ room }: ChatProps) {
             style={{
               display: "flex",
               alignItems: "center",
-              width: "min-content",
+              width: "50vw",
               borderRadius: "10px",
             }}
           >
