@@ -6,12 +6,6 @@ import { useState, useEffect } from "react";
 import { Chat } from "./components/chat";
 import {
   collection, // função que cria uma coleção no banco de dados
-  addDoc, // função que adiciona um documento a uma coleção
-  where, // função que filtra os documentos de uma coleção
-  serverTimestamp, // função que retorna a data e hora do servidor
-  onSnapshot, // função que retorna os dados de uma coleção
-  query, // função que retorna os dados de uma coleção de acordo com o filtro passado como parâmetro
-  orderBy,
   QueryDocumentSnapshot,
   DocumentData, // função que ordena os dados de uma coleção de acordo com o filtro passado como parâmetro
   getDocs,
